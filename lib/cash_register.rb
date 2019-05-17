@@ -8,13 +8,13 @@ class CashRegister
     @total = 0
     @discount = discount
     @items = []
-    
+    @price = 0
   end 
   
   def add_item(title, price, quantity = 1)
-    @price = price
+   
     @total += price * quantity  
-  
+    @price = price
     if quantity > 1
       counter = 0
       while counter < quantity
@@ -29,8 +29,8 @@ class CashRegister
   
   def apply_discount
     if discount > 0  
-      discount = @discount.to_f / 100
-      @total =  @total - (@price.to_f * discount)
+      percentage = @discount.to_f / 100
+      @total =  @total - (@total * percentage)  
       "After the discount, the total comes to $#{@total.to_i}."
     else
       "There is no discount to apply."
@@ -42,6 +42,8 @@ class CashRegister
   end 
   
   def void_last_transaction
-    @total = 0
+    #binding.pry
+    @total = @total - @price 
+    
   end 
 end 
